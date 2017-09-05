@@ -123,7 +123,7 @@ Attraverso l'uso del metodo GET si sono esposte due risorse:
 
 \begin{enumerate}
 	\item \url{http://bartlombardi-001-site1.dtempurl.com/Api/Anomalies}
-	\item \url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=0.931196&longitude=4.4482012}
+	\item \url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=0.931196\&longitude=4.4482012}
 \end{enumerate}
 La risorsa 1 offre un output di tutte le anomalie che sono state rilevate dagli utenti, formattate in JSON, mentre la 2 inserisce l'anomalia nella base di dati, dopo aver effettuato alcuni controlli che descriveremo successivamente. Per salvare i dati si è pensato di creare un piccolo database con una semplice tabella, poichè gli oggetti da salvare erano dello stesso tipo e quindi con le stesse proprietà, infatti una anomalia è stata mappata come un oggetto avente le seguenti proprietà:
 \begin{itemize}
@@ -318,7 +318,7 @@ Istanziata tramite un MapFragment, il quale consente di aggiungere una mappa in 
 
 Inoltre è stato implementato un footer personalizzato, situato nella parte bassa dell'activity contenente la mappa \ref{fig:activityAnomaly} che indica: la velocità istantanea dell'autista, la distanza percorsa e il numero delle anomalie rilevate in maniera automatica o segnalate manualmente attraverso il \textit{FloatingActionButton}.
 
-\subsection*{Rilevamento anomalia stradale}
+\subsection*{Rilevamento anomalie stradali \cite{Mohamed2016}}
 
 In questo paragrafo verrà discusso in maniera dettagliata il processo di rilevamento delle anomalie stradali all'interno dell'applicativo.\\\\
 Il front-end è stato sviluppato per essere usato all'interno dell'abitacolo del veicolo, di conseguenza il dispositivo mobile si muove rispetto al movimento del veicolo. 
@@ -362,8 +362,8 @@ if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 \end{lstlisting} 
 La classe che si occupa della gestione dei sensori è android.hardware.SensorManager di cui si può ottenere un'istanza attraverso il metodo getSystemService() della classe Context (superclasse dell'Activity). Un sensore invece è rappresentato da una particolare istanza della classe android.hardware.Sensor. La classe Sensor implementa alcuni metodi, ma quello usato da noi per rilevare l'accelerometro è \textit{getType()}, il quale ritorna un intero che identifica la tipologia di sensore a cui è associato. Per accedere ai dati che il sensore rileva, l'approcio è asincrono, cioè si registra attraverso un listener ed in base ad un delay impostato manualmente, vengono notificati i valori che il sensore rileva. Per prima cosa si è implementato un listener opportuno che viene rappresentato dall'interfaccia SensorEventListener che definisce il metodo \textit{onSensorChanged(SensorEvent event)}, il quale viene invocato quando i valori del sensore cambiano. Quando il cellulare è in posizione verticale, ottenibile attraverso la funzione \textit{compare(x,y,z)} può essere rilevata una differenza di accelerazione tra due istanti $\epsilon$ superiore alla soglia impostata; solo allora viene lanciato un messaggio vocale che allerta l'autista dell'avvenuta rilevazione della buca stradale e aggiunge alla lista con la posizione ottenuta dal sensore GPS. Dopodichè viene chiamata la funzione \textit{refreshMap()} con lo scopo di aggiornare i marker sulla mappa e aumentare il contatore contenuto nel footer, inoltre viene chiamata la funzione \textit{drawMarkerWithCircle(latLng)} che delinea un cerchio di diametro $\simeq 6m$ non visibile, intorno alla nosta posizione, capace di allertare l'autista attraverso un messaggio acustico la presenza di anomalie.
 
-Una volta che l'utente sceglie di terminare il rilevamento, alla pressione del tasto indietro, ogni anomalia individuata viene inviata al web service con i dettagli della posizione, ottenuta dal sensore GPS, attraverso la 2. risorsa (\url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=value&longitude=value}) descritta precedentemente.
-Attraverso l'uso di un \textit{AsyncTask} come per la ricezione, però questa volta per ogni anomalia rilevata durante il tragitto il metodo \textit{doInBackground(Void... arg0)} effettua tante connessioni tante quante sono le anomalie impostando la posizione nell'url. La parte di codice appena descritta è riportata seguentemente.\\
+Una volta che l'utente sceglie di terminare il rilevamento, alla pressione del tasto indietro, ogni anomalia individuata viene inviata al web service con i dettagli della posizione, ottenuta dal sensore GPS, attraverso la 2. risorsa (\url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=value\&longitude=value}) descritta precedentemente.
+Attraverso l'uso di un \textit{AsyncTask} , per ogni anomalia rilevata durante il tragitto il metodo \textit{doInBackground(Void... arg0)} effettua tante connessioni quante sono le anomalie impostando la posizione nell'url. L'algoritmo appena descritto è riportato seguentemente.\\
 
 \begin{lstlisting}
 private class AsyncTaskSendJson extends AsyncTask<Void, Void, Void> {
@@ -383,10 +383,39 @@ private class AsyncTaskSendJson extends AsyncTask<Void, Void, Void> {
 \end{lstlisting}
 \newpage
 
+\subsection*{Rilevamento incidenti \cite{Faiz2016}}
+Le causa degli incidenti stradali possono essere molteplici fattori come guida spericolata o in stato di ebrezza, mancanza di buone infrastrutture, etc. Inoltre, secondo uno studio Finlandese molte delle morti a causa degli incidenti potevano essere evitate se il sistema di soccorso si fosse attivato più rapidamente.
+\begin{wrapfigure}{l}{0.4\textwidth} % Inline image example
+	\begin{center}
+		\includegraphics[width=0.38\textwidth]{images/numberActivity.jpg}
+	\end{center}
+	\caption{Activity per impostare il contatto da allertare in caso di incidente.}
+	\label{fig:numberAnomaly}
+\end{wrapfigure}
+Quindi si è pensato di integrare all'interno di \textit{"RoadSoSecurity"} un sistema di rilevamento di incidenti con l'invio di notifica automatica ad un numero preimpostato con la posizione dell’incidente, questo perchè può fare la differenza fra la vita e la morte. Il rilevamento di un incidente avviene nello stesso modo delle anomalie, ovvero grazie all'accelerometro, registrando gli sbalzi di accelerazione causati da un incidente. La lettura dell'asse $Z$ indica l'accelerazione orizzontale del veicolo, dato che lo smartphone è posizionato verticalmente sul cruscotto, pertanto un eventuale incidente stradale sarà riflesso come un salto nell'asse di lettura $Z$. 
+
+Alla prima installazione dell'applicativo, l'utente si troverà ad inserire manualmente un numero o sceglierlo fra i contatti della rubrica per impostarlo come "preferito" (Figura \ref{fig:numberAnomaly}), perchè in caso di incidente il sistema invierà automaticamente un messaggio di allerta contente il testo: "Accident occurred. You are requested to help. Accident location lat: 44.507034 N lon: 11.366828". Per controllare il primo accesso si è fatto uso della classe android.content.SharedPreferences che permette di salvare dei settaggi applicativi in un file e condividerli nella applicazione stessa o tra tutte le applicazioni. I dati collocati nelle SharedPreferences vengono salvati in un file XML contenuto nello storage interno, precisamente nella cartella shared\_prefs, inoltre Android mette a disposizione un framework per gestire la persistenza dei dati e la presentazione dell'interfaccia per modificarli.
+La classe SharedPreferences non mette a disposizione dei metodi relativi a ciascun tipo di dato, ma funge da factory di implementazione dell'interfaccia SharedPreferences.Editor che gestisce l'aggiornamento delle informazioni analogamente alla gestione di una transazione. È prevista l'esecuzione di un'operazione di \textit{commit()} al fine di rendere effettive le modifiche apportate. A tal proposito il codice seguente permette di salvare un'informazione booleana di configurazione per poi ritrovarla e controllarla al momento delle esecuzioni successive dell'applicazione stessa. Per quello che riguarda la lettura del valore booleano \textit{isFirtRun} di configurazione al momento dell'avvio dell'applicazione è stato implementato il seguente codice, che se il valore \textit{isFirstRun} è true, quindi è il primo accesso allora fa partire l'activity \ref{fig:numberAnomaly} altrimenti il menù principale.
+\begin{lstlisting}
+Boolean isFirstRun =  
+ PreferenceManager.getDefaultSharedPreferences()
+ .getBoolean("isFirstRun", true);
+
+if (isFirstRun) {
+ startActivity(new Intent(this, NumberActivity.class));
+}
+\end{lstlisting}
+Infatti dopo aver premuto il bottone "Salva" nell'activity in figura \ref{fig:numberAnomaly} viene fatto il \textit{commit()} delle informazioni riguardanti sia il numero di telefono, sia il valore isFirstRun uguale a false, questo significa che nel prossiamo avvio non sarà più un primo accesso.
+\begin{lstlisting}
+sharedPreferences.edit().putString("number", phoneEditText.getText().toString()).commit();
+sharedPreferences.edit().putBoolean("isFirstRun", false).commit();
+\end{lstlisting}
 
 
-\subsection*{RIlevamento incidente}
 
+
+
+\section{Conclusioni}
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
