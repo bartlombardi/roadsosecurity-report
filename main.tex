@@ -125,7 +125,7 @@ Attraverso l'uso del metodo GET si sono esposte due risorse:
 	\item \url{http://bartlombardi-001-site1.dtempurl.com/Api/Anomalies}
 	\item \url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=0.931196\&longitude=4.4482012}
 \end{enumerate}
-La risorsa 1 offre un output di tutte le anomalie che sono state rilevate dagli utenti, formattate in JSON, mentre la 2 inserisce l'anomalia nella base di dati, dopo aver effettuato alcuni controlli che descriveremo successivamente. Per salvare i dati si è pensato di creare un piccolo database con una semplice tabella, poichè gli oggetti da salvare erano dello stesso tipo e quindi con le stesse proprietà, infatti una anomalia è stata mappata come un oggetto avente le seguenti proprietà:
+La risorsa 1 offre un output di tutte le anomalie che sono state rilevate dagli utenti, formattate in JSON, mentre la 2 inserisce l'anomalia nella base di dati, dopo aver effettuato alcuni controlli che descriveremo successivamente. Per salvare i dati si è pensato di creare un piccolo database con una semplice tabella, poichè gli oggetti da salvare sono dello stesso tipo e quindi con le stesse proprietà, infatti una anomalia è stata mappata come un oggetto avente le seguenti proprietà:
 \begin{itemize}
 	\item Latitude: rappresenta la coordinata geografica della latitudine
 	\item Longitude: rappresenta la coordinata geografica della longitudine
@@ -277,7 +277,7 @@ private String convertStreamToString(InputStream is) {
 }
 \end{lstlisting}	
 \end{enumerate}
-\textit{HttpHandler()} viene istanziata nel metodo \textit{doInBackground(Void... arg0)} della classe \textit{AsyncTask}, per effettuare la connessione alla 1. risorsa del web service che espone le anomalie e per parsare il JSON restituito; il risultato di questa operazione è una lista di oggetti di tipo anomalia che verranno aggiunte e quindi rese visibili all'interno mappa attraverso dei marker. La parte di codice sottostante mostra la chiamata alla classe \textit{HttpHandler()} e il parse della stringa JSON.
+\textit{HttpHandler()} viene istanziata nel metodo \textit{doInBackground(Void... arg0)} della classe \textit{AsyncTask}, per effettuare la connessione alla 1. risorsa del web service che espone le anomalie e per parsare il JSON restituito; il risultato di questa operazione è una lista di oggetti di tipo anomalia che verranno aggiunte e quindi rese visibili all'interno della mappa attraverso dei marker. La parte di codice sottostante mostra la chiamata alla classe \textit{HttpHandler()} e il parse della stringa JSON.
 \begin{lstlisting}
 private class AsyncTaskParseJson extends AsyncTask<Void, Void, Void> {
  @Override
@@ -405,17 +405,24 @@ if (isFirstRun) {
  startActivity(new Intent(this, NumberActivity.class));
 }
 \end{lstlisting}
-Infatti dopo aver premuto il bottone "Salva" nell'activity in figura \ref{fig:numberAnomaly} viene fatto il \textit{commit()} delle informazioni riguardanti sia il numero di telefono, sia il valore isFirstRun uguale a false, questo significa che nel prossiamo avvio non sarà più un primo accesso.
+Infatti dopo aver premuto il bottone "Salva" nell'activity in figura \ref{fig:numberAnomaly} viene fatto il \textit{commit()} delle informazioni riguardanti sia il numero di telefono, sia il valore \textit{isFirstRun} uguale a \textit{false}, questo significa che il prossiamo avvio non sarà più un primo accesso.
 \begin{lstlisting}
 sharedPreferences.edit().putString("number", phoneEditText.getText().toString()).commit();
 sharedPreferences.edit().putBoolean("isFirstRun", false).commit();
 \end{lstlisting}
 
+\begin{wrapfigure}{l}{0.4\textwidth} % Inline image example
+	\begin{center}
+		\includegraphics[width=0.4\textwidth]{images/alert.jpg}
+	\end{center}
+	\caption{Alert in caso di incidente.}
+	\label{fig:accidentDetected}
+\end{wrapfigure}
+Una volta che l'applicativo rileva un'incidente, viene visualizzato un alert (Figura \ref{fig:accidentDetected}), l'utente può premere il pulsante "Annulla" per non inviare il messaggio di emergenza, questa situazione è considerata come un falso allarme. Altrimenti, se l'utente lascia scadere il timer o preme il pulsante "ok" il messaggio di emergenza sarà inviato al numero impostato come mostrato in figura \ref{fig:numberAnomaly}.
 
-
-
-
+\newpage
 \section{Conclusioni}
+Il progetto ha dato frutto ad un'applicazione per Android con tutte le funzionalità previste, quindi che possa permettere agli utenti di condividere informazioni sulle anomalie stradali incontrate durante i loro tragitti. Inoltre il software sviluppato fornisce un mezzo di lettura dei dati, attraverso dei marker posizionati sulla mappa. Ciò permette alle persone di potersi informare sullo stato delle strade, per evitare spiacevoli situazioni. L'applicazione è stata costruita per il sistema operativo Android essendo quest'ultimo gratuito, oltre che semplice per lo sviluppo grazie alla sua natura open source e all'ampia documentazione disponibile sull'API. Infatti, Google Maps ha fornito la mappa su cui vengono visualizzate le segnalazioni rilevate. Il progetto può evolversi ulteriormente in diversi modi, un possibile sviluppo futuro sarebbe utilizzare il back-end anche per gestire gli utenti e permettere loro di interagire, creando così una vera e propria comunità online, il cui scopo è quello di migliorare le strade delle città. La possibilità di condividere ogni anomalia sui vari social: Google+, Facebook e Twitter. Migliorare la rilevazione delle anomalie, magari con metodi più intelligenti come per esempio algoritmi che sfruttano il Machine Learning. Oltretutto il progetto potrebbe essere realizzato anche per altri sistemi operativi mobile, come iOS, in modo da raggiungere il maggior numero di utenti possibili, dato che lo scopo del progetto è effettivamente quello di salvaguardare la vita di ogni guidatore.
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
