@@ -70,7 +70,7 @@ RoadSoSecurity} % Subtitle
 %\renewcommand{\abstractname}{Summary} % Uncomment to change the name of the abstract to something else
 
 \begin{abstract}
-Le condizioni del manto stradale possono causare seri incidenti, spesso con tragiche conseguenze; secondo l'Istat nel 2016 si sono verificati in Italia 175.791 incidenti stradali con lesioni a persone che hanno provocato 3.283 vittime e 249.175 feriti. La presenza degli smartphone fornisce una nuova piattaforma su cui implementare reti di sensori, sistemi di assistenza ai guidatori e altre applicazioni intelligenti di trasporto (ITS). In questo lavoro di progetto l'attenzione si è posta sul monitoraggio di buche stradali e del rilevamento di indicendi in maniera del tutto automatica, attraverso la sensoristica di base.
+Le condizioni del manto stradale possono causare seri incidenti, spesso con tragiche conseguenze; secondo dati Istat nel 2016 si sono verificati in Italia 175.791 incidenti stradali con lesioni a persone provocando 3.283 vittime e 249.175 feriti. La diffusione nell’utilizzo degli smartphone fornisce una nuova piattaforma su cui implementare reti di sensori, sistemi di assistenza ai guidatori e altre applicazioni intelligenti di trasporto (ITS). In questo progetto l'attenzione è stata rivolta al monitoraggio di buche stradali e al rilevamento di incidenti in maniera del tutto automatica, tramite la sensoristica di base.
 \end{abstract}
 
 \vspace{30pt} % Some vertical space between the abstract and first section
@@ -80,19 +80,19 @@ Le condizioni del manto stradale possono causare seri incidenti, spesso con trag
 %----------------------------------------------------------------------------------------
 
 \section{Introduzione}
-Le condizioni del manto stradale sono state identificate da organizzazioni internazionali come una delle principali cause di incidenti nel mondo. Infatti, studi mostrano che le condizioni dinamiche della strada possono provocare comportamenti imprevedibili da parte dei guidatori e deterioamenti di parti meccaniche del veicolo, i quali possono avere un forte impatto economico. Sviluppare una mappa delle condizioni stradali può avere un riscontro positivo sulla sicurezza dei conducenti e dei pedoni. 
+Le condizioni del manto stradale sono state definite da diverse organizzazioni internazionali come una delle principali cause di incidenti nel mondo. Studi dimostrano infatti che le condizioni della strada possono provocare comportamenti imprevedibili da parte dei guidatori e deterioramenti di parti meccaniche del veicolo, i quali possono avere ripercussioni di carattere economico. Sviluppare una mappa delle condizioni stradali può quindi giovare alla sicurezza dei conducenti e dei pedoni. 
 
-Quindi si è posto come obiettivo di sviluppare un'applicazione Android che utilizzi i sensori dello smartphone, ovvero GPS e accelerometro per rilevare automaticamente:
+L’obiettivo del progetto è stato quindi sviluppare un'applicazione Android che utilizzi banalmente i sensori dello smartphone, ovvero GPS e accelerometro per rilevare automaticamente:
 \begin{itemize}
 	
 	\item \textbf{Anomalie stradali (buche)} \\
-	Facendo uso dell'accelerometro, si è implementato un sistema smartphone-based capace di rilevare lo sbalzo sull'asse Z e salvare la posizione dell’anomalia attraverso il GPS (in remoto esponendo un servizio web). Le anomalie sono mostrate all’utente attraverso l’applicativo con dei marker posizionati sulla mappa. Inoltre se la posizione corrente del conducente è in un raggio di 6 metri dall’anomalia, allora un alert acustico avvertirà l'utente della presenza \cite{Mohamed2016}.
+	Facendo uso dell'accelerometro, si è implementato un sistema smartphone-based capace di rilevare lo sbalzo sull'asse Z e salvare la posizione dell’anomalia attraverso il GPS (in remoto esponendo un servizio web). Le anomalie sono visualizzabili dall’utente attraverso l’applicativo con dei marker posizionati sulla mappa. Inoltre se la posizione corrente del conducente si registra in un raggio di 6 metri dall’anomalia, allora un alert acustico ne avvertirà l'utente. \cite{Mohamed2016}
 	
 	\item \textbf{Incidenti con l'invio automatico di SMS} \\
-	Anche in questo caso facendo uso dell'accelerometro si è rilevato lo sbalzo sull’asse X che un veicolo durante l’urto subisce, nel caso di un incidente verrà inviato automaticamente un SMS al numero che l'utente ha scelto precedentemente \cite{Faiz2016}.
+	Anche in questo caso facendo uso dell'accelerometro è possibile rilevare lo sbalzo sull’asse X che un veicolo subisce durante l’urto ed in caso di incidente verrà inviato automaticamente un SMS al numero che l'utente ha precedentemente memorizzato. \cite{Faiz2016}
 	
 \end{itemize} 
-La logica dell'applicativo è stata completamente distribuita sul back-end, in modo tale da lasciare allo smartphone la rilevazione e l'analisi dei dati dai sensori per individuare le anomalie. 
+La logica dell'applicativo è stata completamente distribuita sul back-end, in modo da lasciare allo smartphone la rilevazione e l'analisi dei dati dai sensori per individuare le anomalie.
  
 \section{Tecnologie utilizzate}
 In questo paragrafo verranno brevemente descritte le principali tecnologie utilizzate durante la realizzazione del progetto:
@@ -106,7 +106,7 @@ In questo paragrafo verranno brevemente descritte le principali tecnologie utili
 \end{itemize}
 
 \section{Back-end}
-Il sistema è stato progettato in modo distribuito su due entità principali: l'applicativo Android e un server back-end sviluppato in $C\#$. Come già citato in precedenza, l'applicazione utilizza le letture dall'accelerometro e dal GPS dello smartphone per eseguire l'individuazione automatica di anomalie stradali ed eventuali incidenti. L'output delle funzioni dell'applicativo mobile sono le anomalie rilevate insieme alle loro posizioni, quest'ultime vengono poi trasmesse al server attraverso chiamate esplicite dei metodi HTTP, come è possibile intuire nello schema in Figura \ref{fig:rest}.
+Il sistema è stato progettato in modo da essere distribuito su due entità principali: l'applicativo Android e un server back-end sviluppato in C\#. Come già citato in precedenza, l'applicazione utilizza le letture dall'accelerometro e dal GPS dello smartphone per eseguire l'individuazione automatica di anomalie stradali ed eventuali incidenti. L'output delle funzioni dell'applicativo mobile sono le anomalie rilevate insieme alle loro posizioni, quest'ultime vengono poi trasmesse al server attraverso chiamate esplicite dei metodi HTTP, com’ è possibile intuire nello schema in Figura \ref{fig:rest}.
 
 \begin{figure}[h]
 	\begin{center}
@@ -116,7 +116,7 @@ Il sistema è stato progettato in modo distribuito su due entità principali: l'
 	\label{fig:rest}
 \end{figure}
 
- Dato che il manto stradale è in continuo cambiamento, le anomalie possono essere riparate, quindi si è pensato di associare ad ogni anomalia un livello di fiducia; l'algoritmo che si occupa della gestione di tale parametro è contenuto nel server: in grado di aumentare il valore nel caso in cui l'anomalia venga rilevata più volte, oppure decrementato se non viene riportata per un lungo periodo di tempo. E' stata implementata questa funzione al fine di individuare gli interventi di manutenzione che risolvono le anomalie stradali.
+ Dato che il manto stradale è in continuo cambiamento, le anomalie possono essere riparate, quindi si è pensato di associare ad ogni anomalia un livello di fiducia; l'algoritmo che si occupa della gestione di tale parametro è contenuto nel server ed è in grado di aumentare il valore nel caso in cui l'anomalia venga rilevata più volte, oppure decrementarlo se non viene segnalata per un lungo periodo di tempo. E' stata implementata questa funzione al fine di individuare gli interventi di manutenzione che risolvono le anomalie stradali.
 
 Si è optato per un Web Service con uno stile architetturale di tipo RESTful (Figura \ref{fig:rest}) sviluppato con tecnologie Microsoft, attualmente hostato su \url{www.myASP.net} per un periodo gratuito di sessanta giorni. 
 Attraverso l'uso del metodo GET si sono esposte due risorse:
@@ -125,7 +125,7 @@ Attraverso l'uso del metodo GET si sono esposte due risorse:
 	\item \url{http://bartlombardi-001-site1.dtempurl.com/Api/Anomalies}
 	\item \url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=0.931196\&longitude=4.4482012}
 \end{enumerate}
-La risorsa 1 offre un output di tutte le anomalie che sono state rilevate dagli utenti, formattate in JSON, mentre la 2 inserisce l'anomalia nella base di dati, dopo aver effettuato alcuni controlli che descriveremo successivamente. Per salvare i dati si è pensato di creare un piccolo database con una semplice tabella, poichè gli oggetti da salvare sono dello stesso tipo e quindi con le stesse proprietà, infatti una anomalia è stata mappata come un oggetto avente le seguenti proprietà:
+La risorsa 1 offre un output di tutte le anomalie che sono state rilevate dagli utenti, formattate in JSON, mentre la 2 inserisce l'anomalia nella banca dati, dopo aver effettuato alcuni controlli che saranno descritti successivamente. Per salvare i dati si è pensato di creare un piccolo database con una semplice tabella, poiché gli oggetti da salvare sono dello stesso tipo e quindi con le stesse proprietà, infatti un’anomalia è stata mappata come un oggetto avente le seguenti proprietà:
 \begin{itemize}
 	\item Latitude: rappresenta la coordinata geografica della latitudine
 	\item Longitude: rappresenta la coordinata geografica della longitudine
@@ -150,7 +150,7 @@ CREATE TABLE [dbo].[Anomalies]
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 \end{verbatim}
-Una volta creato il database e collegato al web server attraverso la connection string contenuta nel file Web.confing, si sono sviluppati due metodi GET per esporre le risorse, come descritto in precedenza. La classe che si è occupata della gestione dei dati è \textit{DataController}, infatti la funzione \textit{getAllAnomaly()} restituisce tutte le anomalie contenute nel database, mentre la funzione chiamata dal secondo metodo GET \textit{addAnomaly(latitude, longitude)} inserisce la nuova anomalia nella banca dati. Di seugito viene riportato la parte di codice per esporre le risorse attraverso il metodo GET.
+Una volta creato il database e collegato al web server attraverso la connection string contenuta nel file Web.confing, si sono sviluppati due metodi GET per esporre le risorse, come descritto in precedenza. La classe che si è occupata della gestione dei dati è \textit{DataController}, infatti la funzione \textit{getAllAnomaly()} restituisce tutte le anomalie contenute nel database, mentre la funzione chiamata dal secondo metodo GET \textit{addAnomaly(latitude, longitude)} inserisce la nuova anomalia nella banca dati. Di seguito viene riportato la parte di codice richiesta per esporre le risorse attraverso il metodo GET.
 \begin{lstlisting}
 public IEnumerable<Anomaly> Get() { 
   return DataController.getAllAnomaly(); 
@@ -186,7 +186,7 @@ L'output di tale risorsa (\url{http://bartlombardi-001-site1.dtempurl.com/Api/An
   ...
 ]
 \end{verbatim}
-Per quanto riguarda invece la funzione \textit{addAnomaly(double latitude, double longitude)} del \textit{DataController} è un pò più articolata, in quanto prima di inserire una nuova anomalia nella base di dati, controlla se è gia contenuta; nel caso in cui lo fosse, aggiorna semplicemente: il count a più 1, il valore di fedeltà attuale viene aggiornato, rafforzandone l'esistenza secondo l'equazione $New\_Trust = (new\_Count * 0.7) + old\_Trust$, viene aggiornata la data di rilevazione e di aggiornamento. 
+Per quanto riguarda invece la funzione \textit{addAnomaly(double latitude, double longitude)} del \textit{DataController} è un po’ più articolata, in quanto prima di inserire una nuova anomalia nella banca dati, controlla se è già contenuta; nel caso in cui lo sia, procede ad aggiornare la data di rilevazione e di aggiornamento, il count a più 1 ed il valore di fedeltà attuale, rafforzandone l'esistenza secondo l'equazione $New\_Trust = (new\_Count * 0.7) + old\_Trust$. 
 
 \begin{lstlisting}
 public void addAnomaly(double latitude, double longitude)
@@ -216,10 +216,10 @@ public void addAnomaly(double latitude, double longitude)
   }
 }
 \end{lstlisting}
-Dove $old\_Trust$ è il valore di fedeltà del record esistente e $New\_Count$ è il numero di utenti passati da quella posizione e che hanno registrato un rilevamento. Utilizzando questo approccio, se l'anomalia viene rilevata da un certo numero di veicoli, il valore di fedeltà può raggiunge 100, implicando che tale anomalia esiste con una possibilità del $100\%$.
-Il caso contrario è quando si rileva una anomalia non presente nella banca dati, allora questa viene aggiunta con un valore iniziale di fedeltà pari al $70\%$, deducendo che l'anomalia ha una probabilità del $70\%$ di esistere.
+Dove $old\_Trust$ è il valore di fedeltà del record esistente e $New\_Count$ è il numero di utenti passati da quella posizione, che hanno registrato un rilevamento. Utilizzando questo approccio, se l'anomalia viene rilevata da un certo numero di veicoli, il valore di fedeltà può raggiungere 100, implicando che tale anomalia esiste con una probabilità del $100\%$.
+Il caso contrario è quello in cui si rileva un’anomalia non presente in banca dati: questa viene aggiunta con un valore iniziale di fedeltà pari al $70\%$, deducendo che l'anomalia ha una probabilità del $70\%$ di esistere.
 
-Avendo un sistema in continuo aggiornamento, può aiutare le autorità a individuare e organizzare per risolvere le anomalie del manto stradale. Le informazioni di ogni anomalia registrata devono essere aggiornate, rinforzando l'esistenza fino a raggiungere il $100\%$ o diminuendo fino al $0\%$ (caso in cui l'anomalia non viene più rilevata e di conseguenza risolta). Questa procedura di aggiornamento viene eseguita regolarmente su tutto il database. Ogni 48 ore, un \textit{Thread} viene svegliato per eseguire un controllo su tutte le voci registrate. La funzionalità principale di tale \textit{Job} è ridurre il valore di fedeltà del $5\%$ dei record che non sono stati rilevati nelle ultime 48. Ogni due giorni, quindi, il punteggio di fedeltà continuerà a diminuire fino a raggiungere il $0\%$, a questo punto l'anomalia verrà eliminata dal database e scomparirà di conseguenza dalla mappa visualizzata dal front-end, implicando che il problema dell'anomalia stradale sia stato risolto. La parte di codice che esegue il \textit{Thread} è la funzione seguente.
+Avere un sistema in continuo aggiornamento, può aiutare le autorità ad individuare e, quindi, risolvere le anomalie del manto stradale. Le informazioni di ogni anomalia registrata devono essere aggiornate, rinforzandone la reale presenza, aumentando di volta in volta il valore fino ad un $100\%$ o diminuendolo fino allo $0\%$ nel caso in cui l'anomalia non venga più rilevata o sia eventualmente stata risolta. Questa procedura di aggiornamento viene eseguita regolarmente su tutto il database. Ogni 48 ore, un \textit{Thread} viene svegliato per eseguire un controllo su tutte le voci registrate. La funzionalità principale di tale \textit{Job} è ridurre il valore di fedeltà del $5\%$ dei record che non sono stati rilevati nelle ultime 48. Ogni due giorni, quindi, il punteggio di fedeltà continuerà a diminuire fino a raggiungere lo $0\%$. A questo punto l'anomalia verrà eliminata dal database e scomparirà di conseguenza dalla mappa visualizzata dal front-end, implicando che il problema dell'anomalia stradale sia stato risolto. La parte di codice che esegue il \textit{Thread} è la funzione seguente.
 
 \begin{lstlisting}
 public void updateTrust() {
@@ -241,12 +241,12 @@ public void updateTrust() {
   if (isEntry) { AnomalyDb.SaveChanges(); }
 }
 \end{lstlisting}
-Quindi la funzione \textit{updateTrust()} richiamta dal \textit{Thread} cicla su tutte le anomalie presenti nella banca dati e controlla se la data di inserimento e quella di aggiornamento è superiore a 2 giorni; nel caso in cui lo fosse e il valore di fedeltà è diverso da 0 allora viene incrementato di 5 e salva la data in cui è stata aggiornata l'anomalia.
+Quindi la funzione \textit{updateTrust()} richiamata dal \textit{Thread} cicla su tutte le anomalie presenti nella banca dati e controlla che la data di inserimento e quella di aggiornamento siano superiori a 2 giorni; nel caso in cui lo fossero e il valore di fedeltà fosse diverso da 0 allora verrebbe incrementato di 5 con il salvataggio della data in cui è stata aggiornata l'anomalia.
 
 \section{Front-end}
-In questo paragrafo verrà presentata nel dettaglio l’implementazione di \textit{"RoadSoSecurity"}, front-end sviluppato per sistemi mobili Android. Questa, come spiegato in precedenza, comunica con il web service dove sono mantenuti tutti i dati sulle segnalazioni relative alle anomalie stradali per mostrarle sulla mappa. Permette di sfruttare l'accellerometro e il GPS per rilevare buche stradali, condividendo tali informazioni al back-end. Inoltre allo stesso modo, sfruttando la sensoristica, rileva gli incidenti stradali inviando automaticamente un SMS di allerta con le cordinate del posto al numero che l'utente ha impostato nei settaggi dell'applicativo. Inizialmente verranno quindi presentate le classi principali sviluppate per implementare le funzionalità di base dell’applicazione e comunicare con i servizi in rete. In seguito sarà mostrato in modo dettagliato il funzionamento e l’aspetto dell’applicazione, sin dal primo avvio.
+In questo paragrafo verrà presentata nel dettaglio l’implementazione di \textit{"RoadSoSecurity"}, front-end sviluppato per sistemi mobili Android. Questa, come spiegato in precedenza, comunica con il web service dove sono collezionati tutti i dati relativi alle segnalazioni delle anomalie stradali da rendere visibili sulla mappa. Permette di sfruttare l'accelerometro e il GPS per rilevare buche stradali, condividendo tali informazioni al back-end. Inoltre allo stesso modo, sfruttando la sensoristica, rileva gli incidenti stradali inviando automaticamente un SMS di allerta con le coordinate del luogo al numero che l'utente ha impostato nei settaggi dell'applicativo. Di seguito verranno quindi presentate le classi principali sviluppate per implementare le funzionalità di base dell’applicazione e comunicare con i servizi in rete. Proseguendo, sarà mostrato in modo dettagliato il funzionamento e l’aspetto dell’applicazione, sin dal primo avvio.
 
-La classe che gestisce le connessioni con il web service è \textit{HttpHandler()} avente due metodi: 
+La classe che gestisce le connessioni con il web service è \textit{HttpHandler()} è composta da due metodi: 
 \begin{enumerate}
 	\item \textit{makeServiceCall(String reqUrl)} che effettua la connessione, imposta il metodo di chiamata di tipo GET e ritorna il buffer stream in output;
 \begin{lstlisting}
@@ -277,7 +277,7 @@ private String convertStreamToString(InputStream is) {
 }
 \end{lstlisting}	
 \end{enumerate}
-\textit{HttpHandler()} viene istanziata nel metodo \textit{doInBackground(Void... arg0)} della classe \textit{AsyncTask}, per effettuare la connessione alla 1. risorsa del web service che espone le anomalie e per parsare il JSON restituito; il risultato di questa operazione è una lista di oggetti di tipo anomalia che verranno aggiunte e quindi rese visibili all'interno della mappa attraverso dei marker. La parte di codice sottostante mostra la chiamata alla classe \textit{HttpHandler()} e il parse della stringa JSON.
+\textit{HttpHandler()} viene istanziata nel metodo \textit{doInBackground(Void... arg0)} della classe \textit{AsyncTask}, per effettuare la connessione alla 1. risorsa del web service che espone le anomalie e per parsare il JSON restituito; il risultato di questa operazione è una lista di oggetti di tipo anomalia che verranno aggiunti e quindi resi visibili all'interno della mappa attraverso dei marker. La parte di codice sottostante mostra la chiamata alla classe \textit{HttpHandler()} e il parse della stringa JSON.
 \begin{lstlisting}
 private class AsyncTaskParseJson extends AsyncTask<Void, Void, Void> {
  @Override
@@ -307,23 +307,23 @@ private class AsyncTaskParseJson extends AsyncTask<Void, Void, Void> {
 	\label{fig:activityAnomaly}
 \end{wrapfigure}
 
-Alla fine dell'elaborazione di \textit{doInBackground(Void... arg0)} l'esecuzione del thread si sposta nel metodo \textit{onPostExecute(Void result)}, il quale aggiunge le anomalie contenute nella lista \textit{anomalyList} alla mappa. Con l'obiettivo di rendere visibili le buche stradali sulla mappa, come è possibile notare in Figura \ref{fig:activityAnomaly}, si è ciclata la lista contenente le anomalie scaricate dal web service e per ognuna di esse si è creato un marker, successivamente poi sono stati aggiunti alla mappa tramite il metodo \textit{addMarker()} utilizzando le cordinate. Inoltre ogni marker riporta il valore di fedeltà, infatti l'anomalia selezionata riportata in Figura \ref{fig:activityAnomaly} segnala la probabilità di trovare una buca stradale del $55\%$. 
-Per poter lavorare con la mappa si è utilizzato le Google Maps Android API che consentono di aggiungere delle mappe ad un’applicazione senza preoccuparsi di gestire l’accesso ai server di Google, di dover scaricare le mappe e di gestire l’interazione con l’utente. 
+Alla fine dell'elaborazione di \textit{doInBackground(Void... arg0)} l'esecuzione del thread si sposta nel metodo \textit{onPostExecute(Void result)}, il quale aggiunge le anomalie contenute nella lista \textit{anomalyList} alla mappa. Con l'obiettivo di rendere visibili le buche stradali sulla mappa, come è possibile notare in Figura \ref{fig:activityAnomaly}, si è ciclata la lista contenente le anomalie scaricate dal web service e per ognuna di esse è creato un marker. I markers successivamente sono stati aggiunti alla mappa tramite il metodo \textit{addMarker()} utilizzando le cordinate. Inoltre ogni marker riporta il valore di fedeltà, infatti l'anomalia selezionata riportata in Figura \ref{fig:activityAnomaly} segnala la probabilità di trovare una buca stradale del $55\%$. 
+Per poter lavorare con la mappa sono state utilizzate le Google Maps Android API che consentono di aggiungere delle mappe ad un’applicazione senza preoccuparsi di gestire l’accesso ai server di Google, di dover scaricare le mappe e di gestire l’interazione con l’utente. 
 
-Per utilizzare Google Maps su Android occorre ottenere un’API Key ottenibile gratuitamente sul sito ufficiale di Google e richiedere i permessi nel \textit{AndroidManifest.xml} di INTERNET; 
+Per utilizzare Google Maps su Android occorre ottenere un’API Key ottenibile gratuitamente sul sito ufficiale di Google e richiedere i permessi nel \textit{AndroidManifest.xml} di INTERNET;
 \begin{verbatim}
 	<uses-permission android:name="android.permission.INTERNET" />
 \end{verbatim}
-Istanziata tramite un MapFragment, il quale consente di aggiungere una mappa in un Fragment di Android come contenitore per l’oggetto GoogleMap. Infine si è implementato l’interfaccia OnMapReadyCallback per utilizzare il metodo di callback \textit{onMapReady(GoogleMap)} per ottenere un handle all’oggetto GoogleMap in modo da poter interagire con la mappa ed inserire marker descritti in precedenza.
+Istanziata tramite un MapFragment, che consente di aggiungere una mappa in un Fragment di Android come contenitore per l’oggetto GoogleMap. Infine si è implementata l’interfaccia OnMapReadyCallback per utilizzare il metodo di callback \textit{onMapReady(GoogleMap)} per ottenere un handle all’oggetto GoogleMap in modo da poter interagire con la mappa ed inserire i marker descritti in precedenza.
 
 Inoltre è stato implementato un footer personalizzato, situato nella parte bassa dell'activity contenente la mappa \ref{fig:activityAnomaly} che indica: la velocità istantanea dell'autista, la distanza percorsa e il numero delle anomalie rilevate in maniera automatica o segnalate manualmente attraverso il \textit{FloatingActionButton}.
 
 \subsection*{Rilevamento anomalie stradali \cite{Mohamed2016}}
 
 In questo paragrafo verrà discusso in maniera dettagliata il processo di rilevamento delle anomalie stradali all'interno dell'applicativo.\\\\
-Il front-end è stato sviluppato per essere usato all'interno dell'abitacolo del veicolo, di conseguenza il dispositivo mobile si muove rispetto al movimento del veicolo. 
+Il front-end è stato sviluppato per essere usato all'interno dell'abitacolo del veicolo, di conseguenza il dispositivo mobile si muove col movimento del veicolo. 
 Questo ci permette di monitorare il movimento del veicolo utilizzando l'accelerometro, un sensore di movimento che misura l'accelerazione sui tre assi: $X$, $Y$ e $Z$. La lettura dell'asse $Y$ indica l'accelerazione verticale del veicolo, dato che
-lo smartphone è posizionato verticalmente sul cruscotto, allineando così l'asse $Y$ con quello del veicolo. Pertanto, eventuali urti di strada, buche o qualsiasi altra forma di anomalia stradale saranno riflessi come un salto nell'asse di lettura $Y$. 
+lo smartphone è posizionato verticalmente sul cruscotto, allineando così l'asse $Y$ con quello del veicolo. Pertanto, eventuali urti di strada, buche o qualsiasi altra forma di anomalia stradale saranno riflessi come un salto nell'asse di lettura $Y$.  
 \begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=\textwidth]{images/pothole.jpg}
@@ -332,7 +332,7 @@ lo smartphone è posizionato verticalmente sul cruscotto, allineando così l'ass
 	\label{fig:pothole}
 \end{figure}
 
-La Figura \ref{fig:pothole} mostra un esempio di buca stradale, in questo caso l'accelerazione del veicolo nell'asse verticale cambia creandò così un urto che viene percepito dal sensore dello smartphone. Un cambiamento di accelerazione sull'asse $Y$ superiore ad una certa soglia, viene intuito come anomalia e quindi segnalata istantaneamente attraverso un marker sulla mappa. La parte di codice che si occupa di rilevare un urto è la seguente: 
+La Figura \ref{fig:pothole} mostra un esempio di buca stradale, in questo caso l'accelerazione del veicolo nell'asse verticale cambia generando così un urto che viene percepito dal sensore dello smartphone. Un cambiamento di accelerazione sull'asse $Y$ superiore ad una certa soglia, viene intuito come anomalia e quindi segnalata istantaneamente attraverso un marker sulla mappa. La parte di codice che si occupa di rilevare un urto è la seguente: 
 \begin{lstlisting}
 @Override
 public void onSensorChanged(SensorEvent event) {
@@ -360,10 +360,10 @@ if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 ...
 }
 \end{lstlisting} 
-La classe che si occupa della gestione dei sensori è android.hardware.SensorManager di cui si può ottenere un'istanza attraverso il metodo getSystemService() della classe Context (superclasse dell'Activity). Un sensore invece è rappresentato da una particolare istanza della classe android.hardware.Sensor. La classe Sensor implementa alcuni metodi, ma quello usato da noi per rilevare l'accelerometro è \textit{getType()}, il quale ritorna un intero che identifica la tipologia di sensore a cui è associato. Per accedere ai dati che il sensore rileva, l'approcio è asincrono, cioè si registra attraverso un listener ed in base ad un delay impostato manualmente, vengono notificati i valori che il sensore rileva. Per prima cosa si è implementato un listener opportuno che viene rappresentato dall'interfaccia SensorEventListener che definisce il metodo \textit{onSensorChanged(SensorEvent event)}, il quale viene invocato quando i valori del sensore cambiano. Quando il cellulare è in posizione verticale, ottenibile attraverso la funzione \textit{compare(x,y,z)} può essere rilevata una differenza di accelerazione tra due istanti $\epsilon$ superiore alla soglia impostata; solo allora viene lanciato un messaggio vocale che allerta l'autista dell'avvenuta rilevazione della buca stradale e aggiunge alla lista con la posizione ottenuta dal sensore GPS. Dopodichè viene chiamata la funzione \textit{refreshMap()} con lo scopo di aggiornare i marker sulla mappa e aumentare il contatore contenuto nel footer, inoltre viene chiamata la funzione \textit{drawMarkerWithCircle(latLng)} che delinea un cerchio di diametro $\simeq 6m$ non visibile, intorno alla nosta posizione, capace di allertare l'autista attraverso un messaggio acustico la presenza di anomalie.
+La classe che si occupa della gestione dei sensori è android.hardware.SensorManager di cui si può ottenere un'istanza attraverso il metodo getSystemService() della classe Context (superclasse dell'Activity). Un sensore invece è rappresentato da una particolare istanza della classe android.hardware.Sensor. La classe Sensor implementa alcuni metodi, ma quello qui usato per rilevare l'accelerometro è \textit{getType()}, il quale restituisce un intero che identifica la tipologia di sensore cui è associato. Per accedere ai dati che il sensore rileva, l'approccio è asincrono, cioè si registra attraverso un listener ed in base ad un delay impostato manualmente, vengono notificati i valori che il sensore rileva. Per prima cosa si è implementato un listener opportuno che viene rappresentato dall'interfaccia SensorEventListener che definisce il metodo \textit{onSensorChanged(SensorEvent event)}, il quale viene invocato quando i valori del sensore cambiano. Quando il cellulare è in posizione verticale, ottenibile attraverso la funzione \textit{compare(x,y,z)} può essere rilevata una differenza di accelerazione tra due istanti $\epsilon$ superiore alla soglia impostata; solo allora viene lanciato un messaggio vocale che allerta l'autista dell'avvenuta rilevazione della buca stradale che viene aggiunta alla lista con la posizione ottenuta dal sensore GPS. Dopodiché viene chiamata la funzione \textit{refreshMap()} con lo scopo di aggiornare i markers sulla mappa e aumentare il contatore contenuto nel footer, inoltre viene chiamata la funzione \textit{drawMarkerWithCircle(latLng)} che delinea un cerchio di diametro $\simeq 6m$ ,non visibile, intorno alla nostra posizione, capace di allertare l'autista attraverso un messaggio acustico della presenza di anomalie.
 
 Una volta che l'utente sceglie di terminare il rilevamento, alla pressione del tasto indietro, ogni anomalia individuata viene inviata al web service con i dettagli della posizione, ottenuta dal sensore GPS, attraverso la 2. risorsa (\url{http://bartlombardi-001-site1.dtempurl.com/api/Anomalies?latitude=value\&longitude=value}) descritta precedentemente.
-Attraverso l'uso di un \textit{AsyncTask} , per ogni anomalia rilevata durante il tragitto il metodo \textit{doInBackground(Void... arg0)} effettua tante connessioni quante sono le anomalie impostando la posizione nell'url. L'algoritmo appena descritto è riportato seguentemente.\\
+Attraverso l'uso di un \textit{AsyncTask} , per ogni anomalia rilevata durante il tragitto il metodo \textit{doInBackground(Void... arg0)} effettua tante connessioni quante sono le anomalie impostando la posizione nell'url. L'algoritmo appena descritto è riportato di seguito.\\
 
 \begin{lstlisting}
 private class AsyncTaskSendJson extends AsyncTask<Void, Void, Void> {
@@ -384,7 +384,7 @@ private class AsyncTaskSendJson extends AsyncTask<Void, Void, Void> {
 \newpage
 
 \subsection*{Rilevamento incidenti \cite{Faiz2016}}
-Le causa degli incidenti stradali possono essere molteplici fattori come guida spericolata o in stato di ebrezza, mancanza di buone infrastrutture, etc. Inoltre, secondo uno studio Finlandese molte delle morti a causa degli incidenti potevano essere evitate se il sistema di soccorso si fosse attivato più rapidamente.
+Le causa degli incidenti stradali possono essere molteplici fattori come guida spericolata o in stato di ebrezza, mancanza di buone infrastrutture, etc. Inoltre, secondo uno studio finlandese, se il sistema di soccorso si fosse attivato più rapidamente, la maggioranza delle morti per incidenti stradali si sarebbe potuta evitare.
 \begin{wrapfigure}{l}{0.4\textwidth} % Inline image example
 	\begin{center}
 		\includegraphics[width=0.38\textwidth]{images/numberActivity.jpg}
@@ -395,7 +395,7 @@ Le causa degli incidenti stradali possono essere molteplici fattori come guida s
 Quindi si è pensato di integrare all'interno di \textit{"RoadSoSecurity"} un sistema di rilevamento di incidenti con l'invio di notifica automatica ad un numero preimpostato con la posizione dell’incidente, questo perchè può fare la differenza fra la vita e la morte. Il rilevamento di un incidente avviene nello stesso modo delle anomalie, ovvero grazie all'accelerometro, registrando gli sbalzi di accelerazione causati da un incidente. La lettura dell'asse $Z$ indica l'accelerazione orizzontale del veicolo, dato che lo smartphone è posizionato verticalmente sul cruscotto, pertanto un eventuale incidente stradale sarà riflesso come un salto nell'asse di lettura $Z$. 
 
 Alla prima installazione dell'applicativo, l'utente si troverà ad inserire manualmente un numero o sceglierlo fra i contatti della rubrica per impostarlo come "preferito" (Figura \ref{fig:numberAnomaly}), perchè in caso di incidente il sistema invierà automaticamente un messaggio di allerta contente il testo: "Accident occurred. You are requested to help. Accident location lat: 44.507034 N lon: 11.366828". Per controllare il primo accesso si è fatto uso della classe android.content.SharedPreferences che permette di salvare dei settaggi applicativi in un file e condividerli nella applicazione stessa o tra tutte le applicazioni. I dati collocati nelle SharedPreferences vengono salvati in un file XML contenuto nello storage interno, precisamente nella cartella shared\_prefs, inoltre Android mette a disposizione un framework per gestire la persistenza dei dati e la presentazione dell'interfaccia per modificarli.
-La classe SharedPreferences non mette a disposizione dei metodi relativi a ciascun tipo di dato, ma funge da factory di implementazione dell'interfaccia SharedPreferences.Editor che gestisce l'aggiornamento delle informazioni analogamente alla gestione di una transazione. È prevista l'esecuzione di un'operazione di \textit{commit()} al fine di rendere effettive le modifiche apportate. A tal proposito il codice seguente permette di salvare un'informazione booleana di configurazione per poi ritrovarla e controllarla al momento delle esecuzioni successive dell'applicazione stessa. Per quello che riguarda la lettura del valore booleano \textit{isFirtRun} di configurazione al momento dell'avvio dell'applicazione è stato implementato il seguente codice, che se il valore \textit{isFirstRun} è true, quindi è il primo accesso allora fa partire l'activity \ref{fig:numberAnomaly} altrimenti il menù principale.
+La classe SharedPreferences non mette a disposizione dei metodi relativi a ciascun tipo di dato, ma funge da factory di implementazione dell'interfaccia SharedPreferences.Editor che gestisce l'aggiornamento delle informazioni analogamente alla gestione di una transazione. È prevista l'esecuzione di un'operazione di \textit{commit()} al fine di rendere effettive le modifiche apportate. A tal proposito il codice seguente permette di salvare un'informazione booleana di configurazione per poi ritrovarla e controllarla al momento delle esecuzioni successive dell'applicazione stessa. Per quello che riguarda la lettura del valore booleano \textit{isFirtRun} di configurazione al momento dell'avvio dell'applicazione è stato implementato il seguente codice, che fa partire l'activity \ref{fig:numberAnomaly} se il valore \textit{isFirstRun} è true (quindi è il primo accesso) altrimenti fa partire il menù principale.
 \begin{lstlisting}
 Boolean isFirstRun =  
  PreferenceManager.getDefaultSharedPreferences()
@@ -405,7 +405,7 @@ if (isFirstRun) {
  startActivity(new Intent(this, NumberActivity.class));
 }
 \end{lstlisting}
-Infatti dopo aver premuto il bottone "Salva" nell'activity in figura \ref{fig:numberAnomaly} viene fatto il \textit{commit()} delle informazioni riguardanti sia il numero di telefono, sia il valore \textit{isFirstRun} uguale a \textit{false}, questo significa che il prossiamo avvio non sarà più un primo accesso.
+Infatti dopo aver premuto il bottone "Salva" nell'activity in figura \ref{fig:numberAnomaly} viene fatto il \textit{commit()} delle informazioni riguardanti sia il numero di telefono, sia il valore \textit{isFirstRun} uguale a \textit{false}, questo significa che l’avvio successivo non sarà più un primo accesso.
 \begin{lstlisting}
 sharedPreferences.edit().putString("number", phoneEditText.getText().toString()).commit();
 sharedPreferences.edit().putBoolean("isFirstRun", false).commit();
@@ -418,11 +418,11 @@ sharedPreferences.edit().putBoolean("isFirstRun", false).commit();
 	\caption{Alert in caso di incidente.}
 	\label{fig:accidentDetected}
 \end{wrapfigure}
-Una volta che l'applicativo rileva un'incidente, viene visualizzato un alert (Figura \ref{fig:accidentDetected}) temporaneo, l'utente in questo caso può premere il pulsante "Annulla" per non inviare il messaggio di emergenza, questa situazione è considerata come un falso allarme. Altrimenti, se l'utente lascia scadere il timer o preme il pulsante "ok" il messaggio di emergenza sarà inviato al numero impostato come mostrato in figura \ref{fig:numberAnomaly}. 
+Una volta che l'applicativo rileva un'incidente, viene visualizzato un alert (Figura \ref{fig:accidentDetected}) temporaneo, l'utente in questo caso può premere il pulsante "Annulla" per non inviare il messaggio di emergenza per cui questa situazione è considerata come un falso allarme. Altrimenti, se l'utente lascia scadere il timer o preme il pulsante "ok" il messaggio di emergenza sarà inviato al numero impostato come mostrato in figura \ref{fig:numberAnomaly}. 
 
 \newpage
 \section{Conclusioni}
-Il progetto ha dato frutto ad un'applicazione per Android con tutte le funzionalità previste, quindi che possa permettere agli utenti di condividere informazioni sulle anomalie stradali incontrate durante i loro tragitti. Inoltre il software sviluppato fornisce un mezzo di lettura dei dati, attraverso dei marker posizionati sulla mappa. Ciò permette alle persone di potersi informare sullo stato delle strade, per evitare spiacevoli situazioni. L'applicazione è stata costruita per il sistema operativo Android essendo quest'ultimo gratuito, oltre che semplice per lo sviluppo grazie alla sua natura open source e all'ampia documentazione disponibile sull'API. Infatti, Google Maps ha fornito la mappa su cui vengono visualizzate le segnalazioni rilevate. Il progetto può evolversi ulteriormente in diversi modi, un possibile sviluppo futuro sarebbe utilizzare il back-end anche per gestire gli utenti e permettere loro di interagire, creando così una vera e propria comunità online, il cui scopo è quello di migliorare le strade delle città. La possibilità di condividere ogni anomalia sui vari social: Google+, Facebook e Twitter. Migliorare la rilevazione delle anomalie, magari con metodi più intelligenti come per esempio algoritmi che sfruttano il Machine Learning. Oltretutto il progetto potrebbe essere realizzato anche per altri sistemi operativi mobile, come iOS, in modo da raggiungere il maggior numero di utenti possibili, dato che lo scopo del progetto è effettivamente quello di salvaguardare la vita di ogni guidatore.
+Il progetto ha dato frutto ad un'applicazione per Android con tutte le funzionalità previste, che possa quindi permettere agli utenti di condividere informazioni sulle anomalie stradali incontrate durante i loro tragitti. Inoltre il software sviluppato fornisce un mezzo di lettura dei dati, attraverso dei marker posizionati sulla mappa. Ciò permette alle persone di potersi informare sullo stato delle strade, per evitare spiacevoli situazioni. L'applicazione è stata costruita per il sistema operativo Android essendo quest'ultimo gratuito, oltre che semplice per lo sviluppo grazie alla sua natura open source e all'ampia documentazione disponibile sull'API. Infatti, Google Maps ha fornito la mappa su cui vengono visualizzate le segnalazioni rilevate. Il progetto può evolversi ulteriormente in diversi modi, un possibile sviluppo futuro sarebbe utilizzare il back-end anche per gestire gli utenti e permettere loro di interagire, creando così una vera e propria comunità online, il cui scopo è quello di migliorare le strade delle città.  Il sistema è ulteriormente implementabile con la possibilità di condividere ogni anomalia sui vari social: Google+, Facebook e Twitter. Sarebbe inoltre possibile migliorare la rilevazione delle anomalie, magari con metodi più intelligenti come per esempio algoritmi che sfruttano il Machine Learning. Oltretutto il progetto potrebbe essere realizzato anche per altri sistemi operativi mobile, come iOS, in modo da raggiungere il maggior numero di utenti possibili, dato che lo scopo del progetto è effettivamente quello di salvaguardare la vita di ogni guidatore.
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
 %----------------------------------------------------------------------------------------
